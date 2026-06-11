@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>量化研报阅读计划</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; color: #1f2933; background: #f7f8fa; }
+    header { background: #102a43; color: #fff; padding: 24px 32px; }
+    main { max-width: 1120px; margin: 0 auto; padding: 24px; }
+    a { color: #0b65c2; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 16px; }
+    .report { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+    .meta { color: #627d98; font-size: 13px; margin-top: 6px; }
+    .badge { display: inline-block; background: #e0f2fe; color: #075985; border-radius: 999px; padding: 2px 8px; font-size: 12px; margin-right: 6px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { border: 1px solid #d9e2ec; padding: 8px; vertical-align: top; }
+    th { background: #eef2f7; text-align: left; }
+    code { background: #eef2f7; padding: 1px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<header><h1>量化研报阅读计划</h1></header>
+<main>
+
+<section class="card">
+  <p>这是按当前 GA/GP 高频因子研究方向整理的静态阅读库。每篇报告提供 PDF 链接和阅读问题页，方便复制链接给网页版 GPT 分批阅读。</p>
+  <p><b>总计划项：</b>61</p>
+</section>
+<h2>分类入口</h2>
+<div class="grid">
+<div class="card">
+  <h3><a href="categories/01_第一周必读10篇.html">01_第一周必读10篇</a></h3>
+  <p>第一周建立短周期、高频量价、订单簿、因子评价、风险模型和 GP 自动挖掘的共同语言。</p>
+  <p class="meta">10 篇</p>
+</div>
+
+<div class="card">
+  <h3><a href="categories/02_高频量价与短周期因子.html">02_高频量价与短周期因子</a></h3>
+  <p>聚焦分钟级/日内价量结构，补充 GA/GP 的字段、窗口与 raw signal 设计。</p>
+  <p class="meta">11 篇</p>
+</div>
+
+<div class="card">
+  <h3><a href="categories/03_盘口订单簿与大单资金流.html">03_盘口订单簿与大单资金流</a></h3>
+  <p>聚焦 Level2、订单簿斜率、主动买卖、大单和资金流。</p>
+  <p class="meta">14 篇</p>
+</div>
+
+<div class="card">
+  <h3><a href="categories/04_因子评价后处理与组合构建.html">04_因子评价后处理与组合构建</a></h3>
+  <p>聚焦因子测试、后处理、正交、组合优化和收益转化。</p>
+  <p class="meta">9 篇</p>
+</div>
+
+<div class="card">
+  <h3><a href="categories/05_风险模型中性化与暴露.html">05_风险模型中性化与暴露</a></h3>
+  <p>聚焦 Barra、协方差、正交化、中性化和风格暴露控制。</p>
+  <p class="meta">8 篇</p>
+</div>
+
+<div class="card">
+  <h3><a href="categories/06_遗传规划与自动因子挖掘.html">06_遗传规划与自动因子挖掘</a></h3>
+  <p>聚焦 GP/AutoML/机器学习因子挖掘方法。</p>
+  <p class="meta">9 篇</p>
+</div>
+</div>
+<h2>第一周优先阅读 10 篇</h2>
+<ol><li><a href="notes/01_第一周必读10篇/20190804-光大证券-多因子系列报告之二十四_短周期因子的挖掘与组合构建.html">光大证券 多因子系列报告之二十四 短周期因子的挖掘与组合构建</a> | <a href="pdf/01_第一周必读10篇/20190804-光大证券-多因子系列报告之二十四_短周期因子的挖掘与组合构建.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20190506-广发证券-高频数据因子研究系列一_基于日内高频数据的短周期选股因子研究.html">广发证券 高频数据因子研究系列一 基于日内高频数据的短周期选股因子研究</a> | <a href="pdf/01_第一周必读10篇/20190506-广发证券-高频数据因子研究系列一_基于日内高频数据的短周期选股因子研究.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20190815-广发证券-高频数据因子研究系列二_基于日内高频数据的短周期选股因子研究.html">广发证券 高频数据因子研究系列二 基于日内高频数据的短周期选股因子研究</a> | <a href="pdf/01_第一周必读10篇/20190815-广发证券-高频数据因子研究系列二_基于日内高频数据的短周期选股因子研究.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20200223-东吴证券-“技术分析拥抱选股因子”系列研究(一)_高频价量相关性,意想不到的选股因子.html">东吴证券 高频价量相关性 意想不到的选股因子</a> | <a href="pdf/01_第一周必读10篇/20200223-东吴证券-“技术分析拥抱选股因子”系列研究(一)_高频价量相关性,意想不到的选股因子.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20200223-海通证券-选股因子系列研究(五十九)_基于逐笔成交数据的高频因子梳理.html">海通证券 基于逐笔成交数据的高频因子梳理</a> | <a href="pdf/01_第一周必读10篇/20200223-海通证券-选股因子系列研究(五十九)_基于逐笔成交数据的高频因子梳理.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20190905-天风证券-市场微观结构探析系列之二_订单簿上的alpha.html">天风证券 订单簿上的alpha</a> | <a href="pdf/01_第一周必读10篇/20190905-天风证券-市场微观结构探析系列之二_订单簿上的alpha.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20210120-海通证券-选股因子系列研究(七十二)_大单的精细化处理与大单因子重构.html">海通证券 大单的精细化处理与大单因子重构</a> | <a href="pdf/01_第一周必读10篇/20210120-海通证券-选股因子系列研究(七十二)_大单的精细化处理与大单因子重构.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20190925-天风证券-金工专题报告_如何刻画因子对收益的真实预测效果.html">天风证券 如何刻画因子对收益的真实预测效果</a> | <a href="pdf/01_第一周必读10篇/20190925-天风证券-金工专题报告_如何刻画因子对收益的真实预测效果.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20181013-东北证券-金融工程研究报告_Barra模型(CNE6)介绍与应用.html">东北证券 Barra模型 CNE6 介绍与应用</a> | <a href="pdf/01_第一周必读10篇/20181013-东北证券-金融工程研究报告_Barra模型(CNE6)介绍与应用.pdf">PDF</a></li><li><a href="notes/01_第一周必读10篇/20190610-华泰证券-华泰人工智能系列之二十一_基于遗传规划的选股因子挖掘.html">华泰证券 基于遗传规划的选股因子挖掘</a> | <a href="pdf/01_第一周必读10篇/20190610-华泰证券-华泰人工智能系列之二十一_基于遗传规划的选股因子挖掘.pdf">PDF</a></li></ol>
+<h2>统一阅读问题</h2>
+<ol><li>用了什么数据字段？</li><li>构造了什么 raw signal？</li><li>背后的交易行为假设是什么？</li><li>做了什么后处理？</li><li>回测怎么评价？</li><li>对 GA 搜索空间有什么启发？</li></ol>
+<h2>数据文件</h2>
+<p><a href="manifest.json">manifest.json</a></p>
+
+</main>
+</body>
+</html>

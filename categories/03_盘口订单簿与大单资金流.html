@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03_盘口订单簿与大单资金流</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; color: #1f2933; background: #f7f8fa; }
+    header { background: #102a43; color: #fff; padding: 24px 32px; }
+    main { max-width: 1120px; margin: 0 auto; padding: 24px; }
+    a { color: #0b65c2; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 16px; }
+    .report { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+    .meta { color: #627d98; font-size: 13px; margin-top: 6px; }
+    .badge { display: inline-block; background: #e0f2fe; color: #075985; border-radius: 999px; padding: 2px 8px; font-size: 12px; margin-right: 6px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { border: 1px solid #d9e2ec; padding: 8px; vertical-align: top; }
+    th { background: #eef2f7; text-align: left; }
+    code { background: #eef2f7; padding: 1px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<header><h1>03_盘口订单簿与大单资金流</h1></header>
+<main>
+
+<p><a href="../index.html">返回首页</a></p>
+<div class="card"><b>阅读目标：</b>聚焦 Level2、订单簿斜率、主动买卖、大单和资金流。</div>
+
+<div class="report">
+  <div><b>1. 海通证券 Level2 行情选股因子初探</b></div>
+  <div class="meta">match_score=11.8947</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20160606-海通证券-选股因子系列研究(十一)——Level2 行情选股因子初探.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20160606-海通证券-选股因子系列研究(十一)——Level2 行情选股因子初探.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>2. 天风证券 订单簿上的alpha</b></div>
+  <div class="meta">match_score=6.6471</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20190905-天风证券-市场微观结构探析系列之二_订单簿上的alpha.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20190905-天风证券-市场微观结构探析系列之二_订单簿上的alpha.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>3. 东吴证券 订单簿的温度 反转因子的精细结构</b></div>
+  <div class="meta">match_score=10.7111</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20181213-东吴证券-“订单簿的温度”系列研究(一)_反转因子的精细结构.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20181213-东吴证券-“订单簿的温度”系列研究(一)_反转因子的精细结构.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>4. 中信建投 多层次订单失衡及订单斜率因子</b></div>
+  <div class="meta">match_score=6.9636</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20210707-中信建投-因子深度研究系列_多层次订单失衡及订单斜率因子.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20210707-中信建投-因子深度研究系列_多层次订单失衡及订单斜率因子.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>5. 国金证券 弹性与投资者耐心 基于高频订单簿的斜率凸性因子</b></div>
+  <div class="meta">match_score=12.1081</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20230626-国金证券-Alpha掘金系列之六_弹性与投资者耐心,基于高频订单簿的斜率凸性因子.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20230626-国金证券-Alpha掘金系列之六_弹性与投资者耐心,基于高频订单簿的斜率凸性因子.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>6. 海通证券 买卖单数据中的Alpha</b></div>
+  <div class="meta">match_score=6.7778</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20191107-海通证券-选股因子系列研究(五十六)_买卖单数据中的Alpha.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20191107-海通证券-选股因子系列研究(五十六)_买卖单数据中的Alpha.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>7. 海通证券 基于主动买入行为的选股因子</b></div>
+  <div class="meta">match_score=6.8214</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20200112-海通证券-选股因子系列研究(五十七)_基于主动买入行为的选股因子.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20200112-海通证券-选股因子系列研究(五十七)_基于主动买入行为的选股因子.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>8. 海通证券 知情交易与主买主卖</b></div>
+  <div class="meta">match_score=6.6250</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20200214-海通证券-选股因子系列研究(五十八)_知情交易与主买主卖.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20200214-海通证券-选股因子系列研究(五十八)_知情交易与主买主卖.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>9. 海通证券 基于逐笔成交数据的高频因子梳理</b></div>
+  <div class="meta">match_score=6.9000</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20200223-海通证券-选股因子系列研究(五十九)_基于逐笔成交数据的高频因子梳理.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20200223-海通证券-选股因子系列研究(五十九)_基于逐笔成交数据的高频因子梳理.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>10. 海通证券 大单的精细化处理与大单因子重构</b></div>
+  <div class="meta">match_score=6.9000</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20210120-海通证券-选股因子系列研究(七十二)_大单的精细化处理与大单因子重构.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20210120-海通证券-选股因子系列研究(七十二)_大单的精细化处理与大单因子重构.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>11. 东方证券 基于大单的alpha因子构建</b></div>
+  <div class="meta">match_score=6.8947</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20211027-东方证券-因子选股系列之七十九_基于大单的alpha因子构建.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20211027-东方证券-因子选股系列之七十九_基于大单的alpha因子构建.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>12. 国信证券 基于主动买卖特征的高频订单因子改进</b></div>
+  <div class="meta">match_score=7.0656</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20240816-国信证券-金融工程专题研究_基于主动买卖特征的高频订单因子改进.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20240816-国信证券-金融工程专题研究_基于主动买卖特征的高频订单因子改进.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>13. 开源证券 大小单重定标与资金流因子改进</b></div>
+  <div class="meta">match_score=6.8305</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20220904-开源证券-市场微观结构研究系列(16)_大小单重定标与资金流因子改进.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20220904-开源证券-市场微观结构研究系列(16)_大小单重定标与资金流因子改进.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>14. 开源证券 新型因子 资金流动力学与散户羊群效应</b></div>
+  <div class="meta">match_score=11.9385</div>
+  <p><a href="../pdf/03_盘口订单簿与大单资金流/20220602-开源证券-市场微观结构研究系列(14)_新型因子,资金流动力学与散户羊群效应.pdf">打开 PDF</a> | <a href="../notes/03_盘口订单簿与大单资金流/20220602-开源证券-市场微观结构研究系列(14)_新型因子,资金流动力学与散户羊群效应.html">阅读问题页</a></p>
+</div>
+
+
+</main>
+</body>
+</html>

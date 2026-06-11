@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>05_风险模型中性化与暴露</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; color: #1f2933; background: #f7f8fa; }
+    header { background: #102a43; color: #fff; padding: 24px 32px; }
+    main { max-width: 1120px; margin: 0 auto; padding: 24px; }
+    a { color: #0b65c2; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+    .card { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 16px; }
+    .report { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+    .meta { color: #627d98; font-size: 13px; margin-top: 6px; }
+    .badge { display: inline-block; background: #e0f2fe; color: #075985; border-radius: 999px; padding: 2px 8px; font-size: 12px; margin-right: 6px; }
+    table { width: 100%; border-collapse: collapse; background: #fff; }
+    th, td { border: 1px solid #d9e2ec; padding: 8px; vertical-align: top; }
+    th { background: #eef2f7; text-align: left; }
+    code { background: #eef2f7; padding: 1px 4px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+<header><h1>05_风险模型中性化与暴露</h1></header>
+<main>
+
+<p><a href="../index.html">返回首页</a></p>
+<div class="card"><b>阅读目标：</b>聚焦 Barra、协方差、正交化、中性化和风格暴露控制。</div>
+
+<div class="report">
+  <div><b>1. 东北证券 Barra模型 CNE6 介绍与应用</b></div>
+  <div class="meta">match_score=14.0339</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20181013-东北证券-金融工程研究报告_Barra模型(CNE6)介绍与应用.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20181013-东北证券-金融工程研究报告_Barra模型(CNE6)介绍与应用.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>2. 方正证券 Barra模型初探 A股市场风格解析</b></div>
+  <div class="meta">match_score=12.0000</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20180106-方正证券-“星火”多因子系列报告(一)_Barra模型初探,A股市场风格解析.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20180106-方正证券-“星火”多因子系列报告(一)_Barra模型初探,A股市场风格解析.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>3. 东吴证券 协方差矩阵的估计和应用 风险模型 最优化复合因子权重</b></div>
+  <div class="meta">match_score=12.8025</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20180517-东吴证券-因子方法论之二_协方差矩阵的估计和应用~以风险模型和最优化复合因子权重为例.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20180517-东吴证券-因子方法论之二_协方差矩阵的估计和应用~以风险模型和最优化复合因子权重为例.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>4. 海通证券 选股因子的正交</b></div>
+  <div class="meta">match_score=6.5349</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20170119-海通证券-选股因子系列研究(十七)_选股因子的正交.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20170119-海通证券-选股因子系列研究(十七)_选股因子的正交.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>5. 海通证券 因子加权 正交和择时的若干性质</b></div>
+  <div class="meta">match_score=11.8621</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20171009-海通证券-选股因子系列研究(二十六)_因子加权、正交和择时的若干性质.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20171009-海通证券-选股因子系列研究(二十六)_因子加权、正交和择时的若干性质.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>6. 国泰君安 基于Barra CNE6的A股风险模型实践 股票协方差矩阵估计篇</b></div>
+  <div class="meta">match_score=14.2418</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20240530-国泰君安-权益配置因子研究系列07_基于Barra CNE6的A股风险模型实践,股票协方差矩阵估计篇.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20240530-国泰君安-权益配置因子研究系列07_基于Barra CNE6的A股风险模型实践,股票协方差矩阵估计篇.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>7. 长江证券 谁是聪明钱 资金流因子全面测试兼正交化方法详解</b></div>
+  <div class="meta">match_score=12.2286</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20180611-长江证券-基础因子研究(五)_谁是“聪明钱”_资金流因子全面测试兼正交化方法详解.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20180611-长江证券-基础因子研究(五)_谁是“聪明钱”_资金流因子全面测试兼正交化方法详解.html">阅读问题页</a></p>
+</div>
+
+<div class="report">
+  <div><b>8. 国联证券 Barra CNE6 A股适用探析</b></div>
+  <div class="meta">match_score=11.7812</div>
+  <p><a href="../pdf/05_风险模型中性化与暴露/20211127-国联证券-周期内barra~CNE6的A股适用探析_规模和成长因子迎来春天.pdf">打开 PDF</a> | <a href="../notes/05_风险模型中性化与暴露/20211127-国联证券-周期内barra~CNE6的A股适用探析_规模和成长因子迎来春天.html">阅读问题页</a></p>
+</div>
+
+
+</main>
+</body>
+</html>

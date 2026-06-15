@@ -4,7 +4,7 @@ A curated collection of quantitative research reports, covering factor mining, h
 
 本仓库包含“量化研报阅读计划”静态网页库。
 
-入口：[`index.html`](./index.html)
+入口：https://wvelong.github.io/quant-reports/
 
 目录：
 

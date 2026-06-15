@@ -19,6 +19,24 @@
     th, td { border: 1px solid #d9e2ec; padding: 8px; vertical-align: top; }
     th { background: #eef2f7; text-align: left; }
     code { background: #eef2f7; padding: 1px 4px; border-radius: 4px; }
+
+    .report { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 18px; align-items: start; }
+    .report > :not(.read-toggle) { grid-column: 1; }
+    .read-toggle { grid-column: 2; grid-row: 1 / span 3; justify-self: end; display: inline-flex; align-items: center; gap: 8px; border: 1px solid #b6c2cf; border-radius: 999px; padding: 8px 12px; background: #f8fafc; color: #334e68; font-size: 14px; cursor: pointer; user-select: none; white-space: nowrap; }
+    .read-toggle input { width: 16px; height: 16px; accent-color: #0b65c2; }
+    .report.is-read { border-color: #9bc9a6; background: #f7fff8; }
+    .report.is-read b { color: #486581; }
+    .report.is-read .read-toggle { border-color: #79b889; background: #e8f7ec; color: #1f7a3f; }
+    .reading-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 14px 0; padding: 12px 14px; background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; }
+    .reading-toolbar button { border: 1px solid #b6c2cf; background: #fff; color: #0b65c2; border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+    .reading-toolbar button.active { background: #0b65c2; color: #fff; }
+    .reading-progress { color: #486581; font-size: 14px; }
+    body.show-unread-only .report.is-read { display: none; }
+    @media (max-width: 700px) {
+      .report { grid-template-columns: 1fr; }
+      .read-toggle { grid-column: 1; grid-row: auto; justify-self: start; }
+    }
+
   </style>
 </head>
 <body>
@@ -96,5 +114,93 @@
 
 
 </main>
+
+<script>
+(function () {
+  const storagePrefix = "quantReports.read.";
+  const pageKey = location.pathname.replace(/\/+/g, "/");
+
+  function safeKey(raw) {
+    return storagePrefix + raw;
+  }
+
+  function reportKey(report, index) {
+    const pdfLink = report.querySelector('a[href$=".pdf"], a[href*=".pdf"]');
+    const title = report.querySelector("b")?.textContent?.trim() || ("report-" + index);
+    const href = pdfLink ? new URL(pdfLink.getAttribute("href"), location.href).pathname : title;
+    return href;
+  }
+
+  function updateProgress() {
+    const reports = Array.from(document.querySelectorAll(".report"));
+    const read = reports.filter(r => r.classList.contains("is-read")).length;
+    const progress = document.querySelector("[data-reading-progress]");
+    if (progress) progress.textContent = "已读 " + read + " / " + reports.length;
+  }
+
+  function setRead(report, key, checked) {
+    report.classList.toggle("is-read", checked);
+    const label = report.querySelector(".read-toggle-text");
+    if (label) label.textContent = checked ? "已阅读" : "未阅读";
+    if (checked) localStorage.setItem(safeKey(key), "1");
+    else localStorage.removeItem(safeKey(key));
+    updateProgress();
+  }
+
+  function initReports() {
+    const reports = Array.from(document.querySelectorAll(".report"));
+    reports.forEach((report, index) => {
+      if (report.querySelector(".read-toggle")) return;
+      const key = reportKey(report, index);
+      report.dataset.readKey = key;
+      const checked = localStorage.getItem(safeKey(key)) === "1";
+      const label = document.createElement("label");
+      label.className = "read-toggle";
+      label.title = "只保存在当前浏览器，用于标记这篇研报是否已读";
+      label.innerHTML = '<input type="checkbox" aria-label="标记是否已阅读"><span class="read-toggle-text">未阅读</span>';
+      const input = label.querySelector("input");
+      input.checked = checked;
+      input.addEventListener("change", () => setRead(report, key, input.checked));
+      report.appendChild(label);
+      setRead(report, key, checked);
+    });
+  }
+
+  function initToolbar() {
+    if (!document.querySelector(".report") || document.querySelector(".reading-toolbar")) return;
+    const main = document.querySelector("main");
+    const toolbar = document.createElement("div");
+    toolbar.className = "reading-toolbar";
+    toolbar.innerHTML = '<span class="reading-progress" data-reading-progress></span><button type="button" data-filter-unread>只看未读</button><button type="button" data-clear-page>清除本页标记</button>';
+    const anchor = main.querySelector(".card") || main.firstElementChild;
+    if (anchor && anchor.nextSibling) main.insertBefore(toolbar, anchor.nextSibling);
+    else main.prepend(toolbar);
+
+    const filterBtn = toolbar.querySelector("[data-filter-unread]");
+    filterBtn.addEventListener("click", () => {
+      document.body.classList.toggle("show-unread-only");
+      filterBtn.classList.toggle("active", document.body.classList.contains("show-unread-only"));
+      filterBtn.textContent = document.body.classList.contains("show-unread-only") ? "显示全部" : "只看未读";
+    });
+
+    toolbar.querySelector("[data-clear-page]").addEventListener("click", () => {
+      document.querySelectorAll(".report").forEach(report => {
+        const key = report.dataset.readKey;
+        const input = report.querySelector(".read-toggle input");
+        if (key) localStorage.removeItem(safeKey(key));
+        if (input) input.checked = false;
+        setRead(report, key, false);
+      });
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    initReports();
+    initToolbar();
+    updateProgress();
+  });
+})();
+</script>
+
 </body>
 </html>

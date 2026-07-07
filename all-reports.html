@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>全量研报库</title>
+  <style>
+    :root { color-scheme: light; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; color: #1f2933; background: #f7f8fa; }
+    header { background: #102a43; color: #fff; padding: 24px 32px; }
+    main { max-width: 1180px; margin: 0 auto; padding: 24px; }
+    a { color: #0b65c2; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .panel, .report { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; }
+    .panel { padding: 16px; margin-bottom: 18px; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin: 16px 0; }
+    .stat { background: #fff; border: 1px solid #d9e2ec; border-radius: 8px; padding: 12px; }
+    .stat b { display: block; font-size: 22px; color: #102a43; }
+    .toolbar { display: grid; grid-template-columns: minmax(220px, 1fr) 180px 180px; gap: 10px; align-items: center; }
+    input, select { width: 100%; box-sizing: border-box; border: 1px solid #b6c2cf; border-radius: 6px; padding: 9px 10px; font: inherit; background: #fff; color: #1f2933; }
+    .meta { color: #627d98; font-size: 13px; }
+    .report { padding: 13px 15px; margin: 10px 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; }
+    .report-title { font-weight: 650; overflow-wrap: anywhere; }
+    .badge { display: inline-block; background: #e0f2fe; color: #075985; border-radius: 999px; padding: 2px 8px; font-size: 12px; margin-right: 6px; }
+    .actions { white-space: nowrap; }
+    .empty { padding: 18px; color: #627d98; }
+    @media (max-width: 760px) {
+      header { padding: 20px; }
+      main { padding: 18px; }
+      .toolbar { grid-template-columns: 1fr; }
+      .report { grid-template-columns: 1fr; }
+      .actions { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>全量研报库</h1>
+  <p>从服务器 /mnt/research/研报/ 同步，生成时间：2026-07-08 03:51</p>
+</header>
+<main>
+  <section class="panel">
+    <p><a href="index.html">返回精选阅读计划</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
+    <div class="stats">
+      <div class="stat"><b>763</b><span>全部文件</span></div>
+      <div class="stat"><b>759</b><span>PDF</span></div>
+      <div class="stat"><b>4</b><span>其他文件</span></div>
+      <div class="stat"><b>48</b><span>来源目录</span></div>
+      <div class="stat"><b>1.4 GB</b><span>总大小</span></div>
+    </div>
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="搜索标题、券商、路径">
+      <select id="folder"><option value="">全部来源</option></select>
+      <select id="extension"><option value="">全部类型</option></select>
+    </div>
+    <p class="meta" id="summary"></p>
+  </section>
+  <section id="reports"></section>
+</main>
+<script>
+const reports = [];
+const source = "reports_manifest.json";
+
+function sizeLabel(bytes) {
+  const units = ["B", "KB", "MB", "GB"];
+  let value = Number(bytes);
+  for (const unit of units) {
+    if (value < 1024 || unit === units[units.length - 1]) {
+      return unit === "B" ? Math.round(value) + " B" : value.toFixed(1) + " " + unit;
+    }
+    value /= 1024;
+  }
+}
+
+function optionList(select, values) {
+  for (const value of values) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  }
+}
+
+function render() {
+  const q = document.getElementById("search").value.trim().toLowerCase();
+  const folder = document.getElementById("folder").value;
+  const extension = document.getElementById("extension").value;
+  const list = reports.filter(item => {
+    const haystack = [item.display_name, item.file_name, item.source_folder, item.source_relative_path].join(" ").toLowerCase();
+    return (!q || haystack.includes(q)) && (!folder || item.source_folder === folder) && (!extension || item.extension === extension);
+  });
+
+  const container = document.getElementById("reports");
+  document.getElementById("summary").textContent = "显示 " + list.length + " / " + reports.length + " 个文件";
+  container.innerHTML = "";
+  if (!list.length) {
+    container.innerHTML = '<div class="panel empty">没有匹配的研报。</div>';
+    return;
+  }
+  const frag = document.createDocumentFragment();
+  for (const item of list) {
+    const row = document.createElement("article");
+    row.className = "report";
+    const actionText = item.extension === "pdf" ? "打开 PDF" : "下载";
+    row.innerHTML = `
+      <div>
+        <div class="report-title">${item.display_name}</div>
+        <div class="meta"><span class="badge">${item.source_folder || "未分类"}</span><span class="badge">${item.extension}</span>${sizeLabel(item.size_bytes)} · ${item.source_relative_path}</div>
+      </div>
+      <div class="actions"><a href="${encodeURI(item.web_path)}" target="_blank" rel="noopener">${actionText}</a></div>
+    `;
+    frag.appendChild(row);
+  }
+  container.appendChild(frag);
+}
+
+fetch(source)
+  .then(r => r.json())
+  .then(data => {
+    reports.push(...data);
+    optionList(document.getElementById("folder"), [...new Set(reports.map(r => r.source_folder || "未分类"))].sort((a, b) => a.localeCompare(b, "zh-Hans-CN")));
+    optionList(document.getElementById("extension"), [...new Set(reports.map(r => r.extension))].sort());
+    document.getElementById("search").addEventListener("input", render);
+    document.getElementById("folder").addEventListener("change", render);
+    document.getElementById("extension").addEventListener("change", render);
+    render();
+  })
+  .catch(() => {
+    document.getElementById("reports").innerHTML = '<div class="panel empty">索引加载失败，请检查 reports_manifest.json。</div>';
+  });
+</script>
+</body>
+</html>

@@ -248,7 +248,7 @@ def write_all_reports_html(entries: list[dict[str, object]]) -> None:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>全量研报库</title>
+  <title>历史全量研报库 · 量化研究知识库</title>
   <style>
     :root {{ color-scheme: light; }}
     body {{ margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; color: #1f2933; background: #f7f8fa; }}
@@ -280,12 +280,12 @@ def write_all_reports_html(entries: list[dict[str, object]]) -> None:
 </head>
 <body>
 <header>
-  <h1>全量研报库</h1>
+  <h1>历史全量研报库</h1>
   <p>从服务器 /mnt/research/研报/ 同步，生成时间：{html.escape(generated_at)}</p>
 </header>
 <main>
   <section class="panel">
-    <p><a href="index.html">返回精选阅读计划</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
+    <p><a href="index.html">返回知识库首页</a> · <a href="research-map.html">论文研读地图</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
     <div class="stats">
       <div class="stat"><b>{total}</b><span>全部文件</span></div>
       <div class="stat"><b>{pdf_count}</b><span>PDF</span></div>
@@ -388,10 +388,10 @@ def update_index_html(entries: list[dict[str, object]]) -> None:
     total_size = sum(int(e["size_bytes"]) for e in entries)
     card = f"""
 <section class="card" id="all-reports">
-  <h2>全量研报库</h2>
+  <h2>历史全量研报库</h2>
   <p>服务器 <code>/mnt/research/研报/</code> 已同步为 GitHub Pages 可访问的在线研报库。</p>
   <p><b>全部文件：</b>{total} · <b>PDF：</b>{pdf_count} · <b>其他文件：</b>{non_pdf_count} · <b>总大小：</b>{html.escape(format_bytes(total_size))}</p>
-  <p><a href="all-reports.html">打开全量研报库</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
+  <p><a href="all-reports.html">打开历史研报库</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
 </section>
 """
     start_marker = '<section class="card" id="all-reports">'

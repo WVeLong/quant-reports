@@ -3,10 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>量化研报阅读计划</title>
+  <title>量化研究知识库</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; color: #1f2933; background: #f7f8fa; }
-    header { background: #102a43; color: #fff; padding: 24px 32px; }
+    header { background: #102a43; color: #fff; }
+    .header-inner { max-width: 1120px; margin: 0 auto; padding: 22px 24px 28px; }
+    .site-nav { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-bottom: 24px; font-size: 14px; }
+    .site-nav strong { margin-right: auto; }
+    .site-nav a { color: #dce9f3; }
+    header h1 { margin: 0 0 8px; font-size: 40px; letter-spacing: 0; }
+    header p { margin: 0; color: #dce9f3; line-height: 1.65; }
     main { max-width: 1120px; margin: 0 auto; padding: 24px; }
     a { color: #0b65c2; text-decoration: none; }
     a:hover { text-decoration: underline; }
@@ -19,6 +25,12 @@
     th, td { border: 1px solid #d9e2ec; padding: 8px; vertical-align: top; }
     th { background: #eef2f7; text-align: left; }
     code { background: #eef2f7; padding: 1px 4px; border-radius: 4px; }
+    .feature-band { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 24px; align-items: center; padding: 22px 0 26px; border-bottom: 1px solid #d9e2ec; }
+    .feature-band h2 { margin-top: 0; color: #102a43; }
+    .feature-band p { color: #486581; line-height: 1.7; }
+    .feature-cover { display: block; width: 100%; border: 1px solid #d9e2ec; background: #fff; }
+    .primary-link { display: inline-block; border-radius: 6px; padding: 9px 13px; background: #24775b; color: #fff; font-weight: 650; }
+    .primary-link:hover { color: #fff; }
 
     .report { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px 18px; align-items: start; }
     .report > :not(.read-toggle) { grid-column: 1; }
@@ -33,6 +45,9 @@
     .reading-progress { color: #486581; font-size: 14px; }
     body.show-unread-only .report.is-read { display: none; }
     @media (max-width: 700px) {
+      header h1 { font-size: 32px; }
+      .feature-band { grid-template-columns: 1fr; }
+      .feature-cover { width: min(190px, 100%); }
       .report { grid-template-columns: 1fr; }
       .read-toggle { grid-column: 1; grid-row: auto; justify-self: start; }
     }
@@ -40,22 +55,37 @@
   </style>
 </head>
 <body>
-<header><h1>量化研报阅读计划</h1></header>
+<header>
+  <div class="header-inner">
+    <nav class="site-nav"><strong>量化研究知识库</strong><a href="research-map.html">论文研读地图</a><a href="all-reports.html">历史研报库</a></nav>
+    <h1>量化研究知识库</h1>
+    <p>从算法论文到 A 股工程研报，按研究任务组织可直接在线阅读的资料。</p>
+  </div>
+</header>
 <main>
 
 <section class="card">
-  <p>这是按当前 GA/GP 高频因子研究方向整理的静态阅读库。每篇报告提供 PDF 链接和阅读问题页，方便复制链接给网页版 GPT 分批阅读。</p>
-  <p><b>总计划项：</b>61</p>
+  <p>知识库现在分为三部分：面向混合架构系统的 74 篇论文研读地图、原有 61 篇精选量化研报计划，以及从服务器同步的历史全量研报库。</p>
+</section>
+
+<section class="feature-band" id="research-map">
+  <div>
+    <h2>混合架构量化研究系统：论文与研报研读地图</h2>
+    <p>新增 74 篇论文与券商研报，覆盖 DP / Quality-Diversity、神经与代理模型、强化学习与 Bandit、LLM 因子挖掘、Auto Research 和回测统计防线。支持任务分类、A/B/C 优先级、四周路线和逐篇研究重点。</p>
+    <p><b>站内可读 PDF：</b>68 · <b>原始来源页：</b>6 · <b>任务模块：</b>7</p>
+    <p><a class="primary-link" href="research-map.html">打开论文研读地图</a></p>
+  </div>
+  <a href="research-map.html"><img class="feature-cover" src="assets/research-map-cover.png" alt="混合架构量化研究系统论文与研报研读地图封面"></a>
 </section>
 
 <section class="card" id="all-reports">
-  <h2>全量研报库</h2>
+  <h2>历史全量研报库</h2>
   <p>服务器 <code>/mnt/research/研报/</code> 已同步为 GitHub Pages 可访问的在线研报库。</p>
   <p><b>全部文件：</b>763 · <b>PDF：</b>759 · <b>其他文件：</b>4 · <b>总大小：</b>1.4 GB</p>
-  <p><a href="all-reports.html">打开全量研报库</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
+  <p><a href="all-reports.html">打开历史研报库</a> · <a href="reports_manifest.json">JSON 索引</a> · <a href="reports_manifest.csv">CSV 索引</a></p>
 </section>
 
-<h2>分类入口</h2>
+<h2>精选研报分类</h2>
 <div class="grid">
 <div class="card">
   <h3><a href="categories/01_第一周必读10篇.html">01_第一周必读10篇</a></h3>

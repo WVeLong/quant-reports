@@ -11,8 +11,9 @@ A quantitative research knowledge base covering algorithm papers, factor mining,
 - `categories/`: 按阅读主题分类的网页入口
 - `notes/`: 每篇报告的阅读问题页
 - `pdf/`: 按分类整理的完整研报 PDF
-- `research-map.html`: 74 篇论文与研报的混合架构研读地图
+- `research-map.html`: 82 篇论文与研报的混合架构研读地图
 - `research_map.json`: 论文分类、优先级、研究重点与访问状态索引
+- `research_supplements.json`: 去重后的 GP / AST / Emitter 专题补充条目
 - `papers/`: 新增论文 PDF，按研究任务分类
 - `reading-map/`: 研读地图的 PDF 与 Word 原稿
 - `all-reports.html`: 服务器历史全量研报库入口

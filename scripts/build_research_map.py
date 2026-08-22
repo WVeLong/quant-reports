@@ -11,6 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 PAPERS_DIR = REPO_ROOT / "papers"
 DATA_PATH = REPO_ROOT / "research_map.json"
 PAGE_PATH = REPO_ROOT / "research-map.html"
+SUPPLEMENTS_PATH = REPO_ROOT / "research_supplements.json"
 
 CATEGORIES = {
     "D": {
@@ -55,6 +56,12 @@ CATEGORIES = {
         "short": "券商工程参考",
         "description": "贴近 A 股数据与实现细节的遗传规划、神经网络和强化学习案例。",
     },
+    "G": {
+        "slug": "gp-ast-emitter",
+        "label": "GP、AST 程序进化与 Emitter（补充专题）",
+        "short": "GP / AST / Emitter",
+        "description": "连接量化 Alpha 自动发现、Grammar / Semantic GP、AST variation 与离散 QD emitter。",
+    },
 }
 
 WEEKS = [
@@ -81,6 +88,12 @@ WEEKS = [
         "theme": "Auto Research",
         "codes": ["Q04", "Q08", "Q10", "A02", "A03", "A05", "A06", "A07", "A10", "A12"],
         "goal": "从失败实验回到新假设、最小判别实验与 winner carry-forward。",
+    },
+    {
+        "week": "专题补充",
+        "theme": "Formula Evolution / GP Emitter",
+        "codes": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08"],
+        "goal": "从 Idea → Formula、Grammar / Semantic GP 到离散 emitter，补足 AST 搜索链路。",
     },
 ]
 
@@ -143,14 +156,55 @@ def build_data(results_path: Path, staging_dir: Path) -> list[dict[str, object]]
                 "size_bytes": destination.stat().st_size,
             })
         output.append(item)
+    existing_titles = {normalize_title(str(item["title"])) for item in output}
+    existing_urls = {str(item["source_url"]).lower().rstrip("/") for item in output}
+    supplements = json.loads(SUPPLEMENTS_PATH.read_text(encoding="utf-8"))
+    for entry in supplements:
+        title_key = normalize_title(entry["title"])
+        url_key = entry["url"].lower().rstrip("/")
+        if title_key in existing_titles or url_key in existing_urls:
+            raise RuntimeError(f"duplicate supplement: {entry['code']} {entry['title']}")
+        category = CATEGORIES[entry["code"][0]]
+        web_path = entry.get("web_path", "")
+        availability = "source-only"
+        size_bytes = 0
+        if web_path:
+            local_file = REPO_ROOT / web_path
+            if not local_file.exists() or local_file.read_bytes()[:5] != b"%PDF-":
+                raise RuntimeError(f"missing or invalid supplement PDF: {local_file}")
+            availability = "local-pdf"
+            size_bytes = local_file.stat().st_size
+        output.append({
+            "position": len(output) + 1,
+            "code": entry["code"],
+            "priority": entry["priority"],
+            "title": entry["title"],
+            "citation": entry["citation"],
+            "method": entry["method"],
+            "system_mapping": entry["system_mapping"],
+            "reading_focus": entry["reading_focus"],
+            "category": category["label"],
+            "category_short": category["short"],
+            "category_slug": category["slug"],
+            "source_url": entry["url"],
+            "availability": availability,
+            "web_path": web_path,
+            "size_bytes": size_bytes,
+        })
+        existing_titles.add(title_key)
+        existing_urls.add(url_key)
     return output
+
+
+def normalize_title(title: str) -> str:
+    return "".join(character for character in title.casefold() if character.isalnum())
 
 
 def write_data(entries: list[dict[str, object]]) -> None:
     payload = {
         "title": "混合架构量化研究系统：论文与研报研读地图",
-        "version": "1.0",
-        "date": "2026-08-20",
+        "version": "1.1",
+        "date": "2026-08-22",
         "categories": list(CATEGORIES.values()),
         "weeks": WEEKS,
         "entries": entries,
@@ -173,8 +227,9 @@ def copy_map_assets(docx_path: Path, pdf_path: Path, cover_path: Path) -> None:
 
 
 def validate(entries: list[dict[str, object]]) -> None:
-    if len(entries) != 74:
-        raise RuntimeError(f"expected 74 entries, got {len(entries)}")
+    expected = 74 + len(json.loads(SUPPLEMENTS_PATH.read_text(encoding="utf-8")))
+    if len(entries) != expected:
+        raise RuntimeError(f"expected {expected} entries, got {len(entries)}")
     local = [item for item in entries if item["availability"] != "source-only"]
     for item in local:
         path = REPO_ROOT / str(item["web_path"])
@@ -242,7 +297,7 @@ RESEARCH_MAP_HTML = r'''<!doctype html>
     .stat b { display: block; font-size: 26px; color: var(--navy); }
     .stat span { color: var(--muted); font-size: 13px; }
     .guide { margin: 0 0 34px; }
-    .week-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: #fff; }
+    .week-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); background: #fff; }
     .week { padding: 16px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
     .week b { color: var(--green); }
     .week h3 { margin: 7px 0; font-size: 17px; color: var(--navy); }
@@ -295,36 +350,37 @@ RESEARCH_MAP_HTML = r'''<!doctype html>
   <div class="header-inner">
     <nav class="nav"><strong>量化研究知识库</strong><a href="index.html">首页</a><a href="all-reports.html">历史研报库</a><a href="research_map.json">数据索引</a></nav>
     <h1>论文与研报研读地图</h1>
-    <p>围绕混合架构量化研究系统，把 74 篇论文与券商研报组织成可执行的任务导览：先确定系统边界，再读搜索、表示、控制、研究智能体与统计防线。</p>
+    <p>围绕混合架构量化研究系统，把论文与券商研报组织成可执行的任务导览：从系统边界、搜索、表示和控制，延伸到 GP / AST 程序进化、Emitter、研究智能体与统计防线。</p>
   </div>
 </header>
 <main>
   <section class="intro">
     <div>
       <h2>混合架构量化研究系统</h2>
-      <p>本库保留原文中的第一代 / 第二代架构映射、A/B/C 阅读优先级、四周顺序，以及逐篇“方法、系统映射、研读重点”。本地 PDF 可直接复制链接给网页版 GPT；暂未获得公开全文的条目提供原始来源页。</p>
+      <p>本库保留原文中的第一代 / 第二代架构映射、A/B/C 阅读优先级、四周主线，以及逐篇“方法、系统映射、研读重点”。新增 GP / AST / Emitter 专题已先与原库去重；本地 PDF 可直接复制链接给网页版 GPT，暂未获得公开全文的条目提供正式来源页。</p>
       <div class="actions">
         <a class="button primary" href="reading-map/混合架构量化研究系统_论文与研报研读地图_20260820.pdf" target="_blank" rel="noopener">打开研读地图 PDF</a>
         <a class="button" href="reading-map/混合架构量化研究系统_论文与研报研读地图_20260820.docx">下载 Word 原稿</a>
+        <a class="button" href="reading-map/Quant_Alpha_Search_GP_Emitter_论文补充清单_修正版.pdf" target="_blank" rel="noopener">打开 GP / Emitter 补充清单</a>
       </div>
     </div>
     <a href="reading-map/混合架构量化研究系统_论文与研报研读地图_20260820.pdf" target="_blank" rel="noopener"><img class="cover" src="assets/research-map-cover.png" alt="论文与研报研读地图封面"></a>
   </section>
 
   <section class="stats" aria-label="收录统计">
-    <div class="stat"><b id="stat-total">74</b><span>论文与研报条目</span></div>
+    <div class="stat"><b id="stat-total">-</b><span>论文与研报条目</span></div>
     <div class="stat"><b id="stat-local">-</b><span>站内可读 PDF</span></div>
     <div class="stat"><b id="stat-source">-</b><span>仅原始来源页</span></div>
-    <div class="stat"><b>7</b><span>任务导览模块</span></div>
+    <div class="stat"><b id="stat-categories">-</b><span>任务导览模块</span></div>
   </section>
 
   <section class="guide">
-    <h2 class="section-title">四周任务导览</h2>
+    <h2 class="section-title">四周主线与专题补充</h2>
     <div class="week-grid" id="weeks"></div>
   </section>
 
   <section class="library">
-    <h2 class="section-title">74 篇论文与研报</h2>
+    <h2 class="section-title">论文与研报条目</h2>
     <div class="toolbar">
       <input id="search" type="search" placeholder="搜索标题、编号、方法或系统映射">
       <select id="category"><option value="">全部任务类型</option></select>
@@ -397,7 +453,7 @@ function render() {
       const local = isLocal(item);
       const primaryHref = local ? encodeURI(item.web_path) : item.source_url;
       const primaryText = local ? "打开 PDF" : "访问来源页";
-      const availabilityText = item.availability === "existing-report" ? "复用历史研报库" : (local ? sizeLabel(item.size_bytes) : "暂无公开 PDF");
+      const availabilityText = item.availability === "existing-report" ? "复用历史研报库" : (local ? sizeLabel(item.size_bytes) : "站内暂无 PDF");
       article.innerHTML = `
         <div><div class="entry-code">${item.code}</div><span class="priority priority-${item.priority}">${item.priority}</span></div>
         <div>
@@ -436,6 +492,7 @@ fetch(DATA_URL)
     document.getElementById("stat-total").textContent = payload.entries.length;
     document.getElementById("stat-local").textContent = localCount;
     document.getElementById("stat-source").textContent = payload.entries.length - localCount;
+    document.getElementById("stat-categories").textContent = payload.categories.length;
     const select = document.getElementById("category");
     payload.categories.forEach(item => {
       const option = document.createElement("option");

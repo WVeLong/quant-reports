@@ -1,7 +1,7 @@
 {
   "title": "混合架构量化研究系统：论文与研报研读地图",
-  "version": "1.0",
-  "date": "2026-08-20",
+  "version": "1.1",
+  "date": "2026-08-22",
   "categories": [
     {
       "slug": "dp-quality-diversity",
@@ -44,6 +44,12 @@
       "label": "国内券商研报与工程化行业参考",
       "short": "券商工程参考",
       "description": "贴近 A 股数据与实现细节的遗传规划、神经网络和强化学习案例。"
+    },
+    {
+      "slug": "gp-ast-emitter",
+      "label": "GP、AST 程序进化与 Emitter（补充专题）",
+      "short": "GP / AST / Emitter",
+      "description": "连接量化 Alpha 自动发现、Grammar / Semantic GP、AST variation 与离散 QD emitter。"
     }
   ],
   "weeks": [
@@ -109,6 +115,21 @@
         "A12"
       ],
       "goal": "从失败实验回到新假设、最小判别实验与 winner carry-forward。"
+    },
+    {
+      "week": "专题补充",
+      "theme": "Formula Evolution / GP Emitter",
+      "codes": [
+        "G01",
+        "G02",
+        "G03",
+        "G04",
+        "G05",
+        "G06",
+        "G07",
+        "G08"
+      ],
+      "goal": "从 Idea → Formula、Grammar / Semantic GP 到离散 emitter，补足 AST 搜索链路。"
     }
   ],
   "entries": [
@@ -1369,6 +1390,142 @@
       "availability": "local-pdf",
       "web_path": "papers/industry-reports/I07 - DFQ 强化学习因子组合挖掘系统.pdf",
       "size_bytes": 1646850
+    },
+    {
+      "position": 75,
+      "code": "G01",
+      "priority": "A",
+      "title": "AlphaEvolve: A Learning Framework to Discover Novel Alphas in Quantitative Investment",
+      "citation": "Cui et al. · 2021 · arXiv",
+      "method": "以 AutoML 进化可同时处理标量、向量和矩阵特征的 alpha，并通过领域知识算子与冗余剪枝提高搜索效率。",
+      "system_mapping": "直接对应 Idea → Formula 自动搜索、关系型算子注入，以及低相关候选的组合供给。",
+      "reading_focus": "比较其表示空间与当前 DSL；检查相关性目标、收益目标和冗余剪枝是否会损失行为多样性。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://arxiv.org/abs/2103.16196",
+      "availability": "local-pdf",
+      "web_path": "papers/gp-ast-emitter/G01 - AlphaEvolve_ A Learning Framework to Discover Novel Alphas in Quantitative Investment.pdf",
+      "size_bytes": 1505508
+    },
+    {
+      "position": 76,
+      "code": "G02",
+      "priority": "A",
+      "title": "Exploration and Exploitation in Symbolic Regression using Quality-Diversity and Evolutionary Strategies Algorithms",
+      "citation": "Bruneton et al. · 2019 · arXiv",
+      "method": "组合 Genetic Programming、MAP-Elites 与 CMA-ES：QD 保持结构多样性，CMA-ES 优化表达式中的连续常数。",
+      "system_mapping": "对应 AST 结构 emitter 与常数优化 emitter 的分工，可作为离散结构搜索和连续参数搜索的双层模板。",
+      "reading_focus": "行为描述符如何定义；常数内循环的评估成本；结构多样性是否真的转化为增量 alpha。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://arxiv.org/abs/1906.03959",
+      "availability": "local-pdf",
+      "web_path": "papers/gp-ast-emitter/G02 - Exploration and Exploitation in Symbolic Regression using Quality-Diversity and Evolutionary Strategies Algorithms.pdf",
+      "size_bytes": 879276
+    },
+    {
+      "position": 77,
+      "code": "G03",
+      "priority": "A",
+      "title": "Population diversity and inheritance in genetic programming for symbolic regression",
+      "citation": "Burlacu, Yang, Affenzeller · 2024 · Natural Computing",
+      "method": "用基因型与表型相似度度量多样性，并以完整谱系有向无环图追踪祖先贡献和继承模式。",
+      "system_mapping": "对应 parent cloning、少数祖先垄断后代和种群塌缩诊断，可补充 parent supply 与 genealogy 指标。",
+      "reading_focus": "区分语法多样性与信号多样性；评估 canonical GP、offspring selection 和年龄分层种群的差异。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://doi.org/10.1007/s11047-022-09934-x",
+      "availability": "local-pdf",
+      "web_path": "papers/gp-ast-emitter/G03 - Population diversity and inheritance in genetic programming for symbolic regression.pdf",
+      "size_bytes": 8716616
+    },
+    {
+      "position": 78,
+      "code": "G04",
+      "priority": "A",
+      "title": "Grammar-based Genetic Programming: a survey",
+      "citation": "McKay et al. · 2010 · Genetic Programming and Evolvable Machines",
+      "method": "系统梳理 context-free、regular、tree-adjoining 等 grammar 在 GP 表示、约束和应用中的作用。",
+      "system_mapping": "为当前 DSL 的合法 AST 生成、类型约束、genotype-to-phenotype 映射和 grammar-aware variation 提供理论底座。",
+      "reading_focus": "明确 grammar 在初始化、交叉和变异各阶段的约束位置，并识别表示偏置与不可达表达式。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://doi.org/10.1007/s10710-010-9109-y",
+      "availability": "local-pdf",
+      "web_path": "papers/gp-ast-emitter/G04 - Grammar-based Genetic Programming_ a survey.pdf",
+      "size_bytes": 889840
+    },
+    {
+      "position": 79,
+      "code": "G05",
+      "priority": "B",
+      "title": "Grammar-guided genetic programming and dimensional consistency: application to non-parametric identification in mechanics",
+      "citation": "Ratle, Sebag · 2001 · Applied Soft Computing",
+      "method": "把量纲一致性编码为 context-free grammar，并用新的 grammar-compliant 初始化过程改善初始种群多样性。",
+      "system_mapping": "对应把金融字段类型、单位和时序约束前置到 DSL grammar，减少无效公式进入评估队列。",
+      "reading_focus": "领域约束缩小搜索空间的收益与表示偏置；初始化多样性不足是否会抵消 grammar 的优势。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://hal.science/hal-00111336v1",
+      "availability": "source-only",
+      "web_path": "",
+      "size_bytes": 0
+    },
+    {
+      "position": 80,
+      "code": "G06",
+      "priority": "A",
+      "title": "Crossover and mutation operators for grammar-guided genetic programming",
+      "citation": "Couchet et al. · 2007 · Soft Computing",
+      "method": "设计 grammar-based crossover 与 mutation，在维持语法约束的同时平衡探索、利用和收敛速度。",
+      "system_mapping": "直接对应 AST emitter 的 variation operator 设计，以及有效公式生成率与搜索动力之间的权衡。",
+      "reading_focus": "算子如何保证闭包和可生成性；与 subtree mutation、typed GP 及当前 repair 流程做逐项对照。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://doi.org/10.1007/s00500-006-0144-9",
+      "availability": "source-only",
+      "web_path": "",
+      "size_bytes": 0
+    },
+    {
+      "position": 81,
+      "code": "G07",
+      "priority": "B",
+      "title": "Semantic Search Techniques for Learning Smaller Boolean Expression Trees in Genetic Programming",
+      "citation": "Miller, Chan · 2014 · International Journal of Computational Intelligence and Applications",
+      "method": "SGP+ 以程序输出语义驱动搜索，并利用历史语义档案设计 crossover 与 mutation，以减小程序树。",
+      "system_mapping": "对应按 signal behavior 而非 AST 语法距离去重、选亲和归档，降低语法不同但输出近似的重复搜索。",
+      "reading_focus": "从 Boolean semantics 迁移到连续 alpha 时的距离度量、尺度归一化、噪声鲁棒性与档案成本。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://doi.org/10.1142/S1469026814500187",
+      "availability": "local-pdf",
+      "web_path": "papers/gp-ast-emitter/G07 - Semantic Search Techniques for Learning Smaller Boolean Expression Trees in Genetic Programming.pdf",
+      "size_bytes": 447408
+    },
+    {
+      "position": 82,
+      "code": "G08",
+      "priority": "A",
+      "title": "Gradient-Informed Quality Diversity for the Illumination of Discrete Spaces",
+      "citation": "Boige et al. · 2023 · GECCO / arXiv",
+      "method": "ME-GIDE 利用目标与行为描述符对离散输入的可微信息，提出面向离散空间的 gradient-informed emitter。",
+      "system_mapping": "对应 AST 离散搜索中的启发式 emitter，可将代理梯度或 token-level credit 转换为候选变异方向。",
+      "reading_focus": "离散梯度如何构造；descriptor 梯度与质量梯度如何协调；代理误差是否会压缩 archive coverage。",
+      "category": "GP、AST 程序进化与 Emitter（补充专题）",
+      "category_short": "GP / AST / Emitter",
+      "category_slug": "gp-ast-emitter",
+      "source_url": "https://arxiv.org/abs/2306.05138",
+      "availability": "local-pdf",
+      "web_path": "papers/gp-ast-emitter/G08 - Gradient-Informed Quality Diversity for the Illumination of Discrete Spaces.pdf",
+      "size_bytes": 2444990
     }
   ]
 }
